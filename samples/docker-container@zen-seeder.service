@@ -1,0 +1,26 @@
+[Unit]
+Description=Zen DNS seeder Container
+After=docker.service
+Requires=docker.service
+ 
+[Service]
+TimeoutStartSec=10m
+Restart=always
+# Add environment variables, adjust them to your needs
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment LOCAL_USER_ID=$(id -u zenseeder)"
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment LOCAL_GRP_ID=$(getent group zenseeder | cut -d : -f 3)"
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment OPTS='-h dnsseed.domain.tld -n mainnet.domain.tld -m mail.domain.tld -p 5353'"
+# testnet ExecStartPre=/bin/bash -c "/bin/systemctl set-environment OPTS='-h dnsseed.testnet.domain.tld -n testnet.domain.tld -m mail.domain.tld -p 5353 --testnet'"
+ExecStartPre=-/usr/bin/docker stop %i
+ExecStartPre=-/usr/bin/docker rm  %i
+ExecStartPre=/usr/bin/docker pull zencash/zen-seeder
+ExecStart=/usr/bin/docker run --rm --init \
+                              -e LOCAL_USER_ID \
+                              -e LOCAL_GRP_ID \
+                              -e OPTS \
+                              -p 53:5353 \
+                              -v zen-seeder:/mnt/seeder \
+                              --name %i zencash/zen-seeder
+[Install]
+WantedBy=multi-user.target
+
