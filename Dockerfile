@@ -8,7 +8,14 @@ RUN apt-get update \
     && git clone -b master --single-branch https://github.com/ZencashOfficial/zen-seeder.git /root/seeder \
     && cd /root/seeder \
     && make \
+    && install -m 755 dnsseed /usr/local/bin/dnsseed-avx \
+    && cd \
+    && rm -rf /root/seeder \
+    && git clone -b portable --single-branch https://github.com/ZencashOfficial/zen-seeder.git /root/seeder \
+    && cd /root/seeder \
+    && make \
     && install -m 755 dnsseed /usr/local/bin \
+    && cd \
     && rm -rf /root/seeder \
     && DEBIAN_FRONTEND=noninteractive apt-get purge -y --auto-remove git build-essential libboost-all-dev libssl-dev \
     && apt-get clean \
@@ -39,4 +46,4 @@ VOLUME /mnt/seeder
 
 WORKDIR /mnt/seeder
 
-CMD ["dnsseed"]
+CMD ["zen-dnsseed"]
