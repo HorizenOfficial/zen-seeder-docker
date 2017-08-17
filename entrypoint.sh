@@ -25,9 +25,9 @@ export HOME=/mnt/seeder
 chown -R user:user /mnt/seeder
 
 if grep -q avx /proc/cpuinfo; then
-    ln -snf /usr/bin/dnsseed-avx /usr/bin/zen-dnsseed
+    ln -snf /usr/local/bin/dnsseed-avx /usr/local/bin/zen-dnsseed
 else
-    ln -snf /usr/bin/dnsseed /usr/bin/zen-dnsseed
+    ln -snf /usr/local/bin/dnsseed /usr/local/bin/zen-dnsseed
 fi
 
 if [[ "$1" == zen-dnsseed ]]; then
