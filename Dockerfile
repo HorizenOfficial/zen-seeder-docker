@@ -1,4 +1,4 @@
-FROM zencash/gosu-base:1.10
+FROM zencash/gosu-base:1.11
 
 MAINTAINER cronicc@protonmail.com
 
@@ -22,7 +22,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # grab tini for signal processing and zombie killing
-ENV TINI_VERSION v0.15.0
+ENV TINI_VERSION v0.18.0
 RUN set -x \
 	&& wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini" \
 	&& wget -O /usr/local/bin/tini.asc "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini.asc" \
