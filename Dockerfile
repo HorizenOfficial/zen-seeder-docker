@@ -5,13 +5,13 @@ MAINTAINER cronicc@protonmail.com
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install apt-utils \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install git build-essential libboost-all-dev libssl-dev ca-certificates wget \
-    && git clone -b master --single-branch https://github.com/ZencashOfficial/zen-seeder.git /root/seeder \
+    && git clone -b master --single-branch https://github.com/HorizenOfficial/zen-seeder.git /root/seeder \
     && cd /root/seeder \
     && make \
     && install -m 755 dnsseed /usr/local/bin/dnsseed-avx \
     && cd \
     && rm -rf /root/seeder \
-    && git clone -b portable --single-branch https://github.com/ZencashOfficial/zen-seeder.git /root/seeder \
+    && git clone -b portable --single-branch https://github.com/HorizenOfficial/zen-seeder.git /root/seeder \
     && cd /root/seeder \
     && make \
     && install -m 755 dnsseed /usr/local/bin \
